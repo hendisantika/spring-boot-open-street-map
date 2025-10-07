@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title th:text="${location != null ? location.name : 'Map View'}">Map View</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/webjars/leaflet/1.9.4/leaflet.css" rel="stylesheet">
+    <script src="/webjars/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">OpenStreetMap App</a>
+        <div>
+            <a class="btn btn-outline-light me-2" href="/locations">Back to List</a>
+            <a class="btn btn-outline-light" href="/">Search Location</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4 mb-4">
+    <div th:if="${location != null}">
+        <div class="info-card">
+            <h2 th:text="${location.name}">Location Name</h2>
+            <p class="text-muted" th:text="${location.description}">Description</p>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p><strong>Country:</strong> <span th:text="${location.country}">Indonesia</span></p>
+                    <p><strong>Latitude:</strong> <span th:text="${location.latitude}">-6.xxx</span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Longitude:</strong> <span th:text="${location.longitude}">106.xxx</span></p>
+                    <p><strong>Place ID:</strong> <span th:text="${location.place_id}">xxxxx</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var latitude = /*[[${location.latitude}]]*/ '-6.1753924';
+            var longitude = /*[[${location.longitude}]]*/ '106.8271528';
+            var locationName = /*[[${location.name}]]*/ 'Location';
+            var description = /*[[${location.description}]]*/ 'Description';
+
+            // Initialize the map
+            var map = L.map('map').setView([parseFloat(latitude), parseFloat(longitude)], 13);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Add a marker with popup
+            var marker = L.marker([parseFloat(latitude), parseFloat(longitude)]).addTo(map);
+            marker.bindPopup('<b>' + locationName + '</b><br>' + description).openPopup();
+
+            // Add a circle around the location
+            var circle = L.circle([parseFloat(latitude), parseFloat(longitude)], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.2,
+                radius: 500
+            }).addTo(map);
+            /*]]>*/
+        </script>
+    </div>
+
+    <div class="alert alert-warning" th:if="${location == null}">
+        Location not found. <a href="/locations">Return to list</a>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <p class="mb-0">Powered by OpenStreetMap & Leaflet</p>
+</footer>
+</body>
+</html>

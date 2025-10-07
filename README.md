@@ -239,6 +239,24 @@ Edit `map.html` to customize:
 - Circle color (default: red)
 - Tile layer style
 
+### Image Screenshots
+
+Insert Placeholder
+
+![Placeholder](img/insert.png "Insert Placeholder")
+
+Placeholder
+
+![Placeholder](img/place.png "Placeholder")
+
+List Maps on West Java & Jakarta
+
+![List Maps on West Java & Jakarta](img/list.png "List Maps on West Java & Jakarta")
+
+MapsetView
+
+![MapsetView](img/maps.png "MapsetView")
+
 ## Contributing
 
 1. Fork the repository

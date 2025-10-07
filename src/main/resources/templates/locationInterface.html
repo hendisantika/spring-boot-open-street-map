@@ -8,14 +8,36 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body class="bg-secondary">
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">OpenStreetMap App</a>
+        <a class="btn btn-outline-light" href="/locations">View West Java & Jakarta Locations</a>
+    </div>
+</nav>
+
 <div class="row container-fluid">
-    <div class="col-12 col-md-4 mx-auto mt-4  bg-dark rounded">
-        <form action="#" class="text-white" method="post" th:action="@{/getPlace}" th:object="${Location}">
+    <div class="col-12 col-md-4 mx-auto mt-4 bg-dark rounded">
+        <form action="#" class="text-white p-3" method="post" th:action="@{/getPlace}" th:object="${Location}">
+            <h4 class="mb-3">Search Location</h4>
             <label>Insert Place Name:</label>
             <input class="form-control" required th:field="*{name}" type="text"/>
-            <p class="mt-4"><input class="btn btn-primary mr-3" type="submit" value="Submit"/> <input
-                    class="btn btn-danger" type="reset" value="Reset"/></p>
+            <p class="mt-4">
+                <input class="btn btn-primary mr-3" type="submit" value="Submit"/>
+                <input class="btn btn-danger" type="reset" value="Reset"/>
+            </p>
         </form>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="alert alert-info">
+                <h5>🗺️ Quick Access</h5>
+                <p class="mb-2">Click the button below to explore pre-loaded locations in West Java & Jakarta</p>
+                <a class="btn btn-primary" href="/locations">View All Locations</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

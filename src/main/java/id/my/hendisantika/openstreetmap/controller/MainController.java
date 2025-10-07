@@ -1,6 +1,9 @@
 package id.my.hendisantika.openstreetmap.controller;
 
+import id.my.hendisantika.openstreetmap.model.Location;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,4 +19,9 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class MainController {
+    @GetMapping("/")
+    public String locationSubmit(Model model) {
+        model.addAttribute("Location", new Location());
+        return "locationInterface";
+    }
 }

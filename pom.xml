@@ -86,6 +86,7 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </path>
+                        <mainClass>id.my.hendisantika.openstreetmap.SpringBootOpenStreetMapApplication</mainClass>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>

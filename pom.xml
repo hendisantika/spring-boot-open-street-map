@@ -60,11 +60,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>leaflet</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -86,7 +81,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </path>
-                        <mainClass>id.my.hendisantika.openstreetmap.SpringBootOpenStreetMapApplication</mainClass>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
@@ -100,6 +94,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                        <mainClass>id.my.hendisantika.openstreetmap.SpringBootOpenStreetMapApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

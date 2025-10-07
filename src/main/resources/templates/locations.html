@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>West Java & Jakarta Locations</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        .location-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">OpenStreetMap App</a>
+        <a class="btn btn-outline-light" href="/">Search Location</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">West Java & Jakarta Locations</h2>
+            <p class="text-muted">Click on any location to view it on the map</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4" th:each="location : ${locations}">
+            <div class="card location-card h-100" onclick="window.location.href='/map/' + [[${location.id}]]">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${location.name}">Location Name</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong><br/>
+                        <span th:text="${location.description}">Description</span>
+                    </p>
+                    <hr/>
+                    <p class="card-text mb-1">
+                        <small class="text-muted">
+                            <i class="bi bi-geo-alt"></i>
+                            Latitude: <span th:text="${location.latitude}">-6.xxx</span><br/>
+                            Longitude: <span th:text="${location.longitude}">106.xxx</span>
+                        </small>
+                    </p>
+                    <div class="mt-3">
+                        <a class="btn btn-primary btn-sm" th:href="@{/map/{id}(id=${location.id})}">View on Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4" th:if="${#lists.isEmpty(locations)}">
+        <div class="col-12">
+            <div class="alert alert-info">
+                No locations available. Please check back later.
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <p class="mb-0">West Java & Jakarta Location Explorer with OpenStreetMap & Leaflet</p>
+</footer>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package id.my.hendisantika.openstreetmap.controller;
 
 import id.my.hendisantika.openstreetmap.model.Location;
+import id.my.hendisantika.openstreetmap.service.LocationService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -29,7 +32,9 @@ import java.util.List;
  */
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class MainController {
+    private final LocationService locationService;
     @GetMapping("/")
     public String locationSubmit(Model model) {
         model.addAttribute("Location", new Location());
@@ -88,5 +93,20 @@ public class MainController {
 
         log.info(String.valueOf(location));
         return "details";
+    }
+
+    @GetMapping("/locations")
+    public String listLocations(Model model) {
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+        return "locations";
+    }
+
+    @GetMapping("/map/{id}")
+    public String viewMap(@PathVariable Long id, Model model) {
+        locationService.getLocationById(id).ifPresent(location -> {
+            model.addAttribute("location", location);
+        });
+        return "map";
     }
 }

@@ -7,6 +7,30 @@ updates:
       time: '05:00'
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
+    assignees:
+      - hendisantika
+    labels:
+      - dependencies
+      - java
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: scope
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+      webjars:
+        patterns:
+          - "org.webjars*"
+      maven-minor-patch:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - "org.springframework.boot*"
+          - "org.webjars*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -14,3 +38,15 @@ updates:
       time: '05:00'
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
+    assignees:
+      - hendisantika
+    labels:
+      - dependencies
+      - github_actions
+    commit-message:
+      prefix: "ci(deps)"
+      include: scope
+    groups:
+      github-actions:
+        patterns:
+          - "*"

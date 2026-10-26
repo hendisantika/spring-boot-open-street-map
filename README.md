@@ -1,5 +1,10 @@
 # Spring Boot OpenStreetMap Application
 
+[![Java CI with Maven](https://github.com/hendisantika/spring-boot-open-street-map/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/spring-boot-open-street-map/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.0-6DB33F?logo=springboot)
+![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025E8C?logo=dependabot)
+
 A Spring Boot web application that integrates OpenStreetMap with Leaflet.js to display and manage locations in West Java
 and Jakarta, Indonesia. The application features location search, a pre-loaded database of popular landmarks, and
 interactive maps.
@@ -17,12 +22,12 @@ interactive maps.
 ## Technologies Used
 
 - **Backend**:
-    - Spring Boot 3.5.6
+    - Spring Boot 4.1.0
     - Spring Data JPA
     - H2 Database
     - Thymeleaf Template Engine
     - Lombok
-    - Java 25
+    - Java 25 (LTS)
 
 - **Frontend**:
     - Bootstrap 5.3.8
@@ -55,28 +60,28 @@ interactive maps.
 
 ### Prerequisites
 
-- Java 25 or higher
-- Maven 3.6+
+- Java 25 (LTS) or higher
+- Maven 3.9+ (optional — the bundled Maven Wrapper `./mvnw` downloads Maven 3.9.11 automatically)
 
 ### Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/spring-boot-open-street-map.git
+git clone https://github.com/hendisantika/spring-boot-open-street-map.git
 cd spring-boot-open-street-map
 ```
 
 2. Build the project:
 
 ```bash
-mvn clean install
+./mvnw clean install
 ```
 
 3. Run the application:
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 Or run the JAR file:
@@ -178,7 +183,7 @@ spring.datasource.password=
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.show-sql=true
-# H2 Console Configuration
+# H2 Console Configuration (optional, for debugging)
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 ```
@@ -257,11 +262,34 @@ MapsetView
 
 ![MapsetView](img/maps.png "MapsetView")
 
+## Continuous Integration & Dependency Updates
+
+### GitHub Actions
+
+The [`Java CI with Maven`](.github/workflows/maven.yml) workflow runs on every push and pull request to `main`
+(and can be triggered manually via `workflow_dispatch`). It:
+
+- Sets up **Temurin JDK 25** with Maven dependency caching
+- Builds and tests the project with `./mvnw -B verify`
+- Submits the Maven dependency graph to GitHub (pushes to `main` only) to improve Dependabot security alerts
+- Cancels superseded runs on the same branch and uses least-privilege permissions
+
+### Dependabot
+
+[Dependabot](.github/dependabot.yml) checks for updates daily at 05:00 (Asia/Jakarta):
+
+| Ecosystem      | Groups                                                                 | Commit prefix   |
+|----------------|------------------------------------------------------------------------|-----------------|
+| Maven          | `spring-boot`, `webjars`, `maven-minor-patch` (all other minor/patch)  | `build(deps)`   |
+| GitHub Actions | `github-actions` (all actions in a single PR)                          | `ci(deps)`      |
+
+Pull requests are labelled (`dependencies`, `java` / `github_actions`) and assigned automatically.
+
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Commit your changes using [Conventional Commits](https://www.conventionalcommits.org/) (`git commit -m 'feat: add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -301,5 +329,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ### Build issues
 
 - Ensure Java 25 is installed: `java -version`
-- Clear Maven cache: `mvn clean`
-- Rebuild: `mvn clean install`
+- Clear build output: `./mvnw clean`
+- Rebuild: `./mvnw clean install`
